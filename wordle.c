@@ -1,8 +1,10 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
 #include <string.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <unac.h>
 
 int len(char* s){
     int n=0;
@@ -11,25 +13,7 @@ int len(char* s){
     }
     return n;
 }
-/*
-char* removeaccents(char* word){
-    char* res;
-    int i =0;
-    while(word[i]!=0) {
-        switch (word[i]) {
-            case 'à': res[i] = 'a'; break;
-            case 'è': res[i] = 'e'; break;
-            case 'é': res[i] = 'e'; break;
-            case 'ì': res[i] = 'i'; break;
-            case 'ò': res[i] = 'o'; break;
-            case 'ù': res[i] = 'u'; break;
-            default : res[i] = word[i];
-        }
-        i++;
 
-     }
-     return res;
-}*/
 
 void readnthline(char* fichier, int n,char* buffer){
     FILE* fichier1 = fopen(fichier,"rb");
@@ -52,6 +36,16 @@ void readnthline(char* fichier, int n,char* buffer){
 
 }
 
+char* remove_accents(char* word){
+char* out = 0;
+size_t out_length = 0;
+if(unac_string("UTF-8", word, strlen(word), &out, &out_length)) {
+    perror("unac_string"); } 
+else  {
+    return out;
+}
+}
+
 int verifdico(char* mot, char* dico){
     FILE* fichier1 = fopen(dico,"rb");
     if (fichier1 == NULL){
@@ -60,7 +54,7 @@ int verifdico(char* mot, char* dico){
     char buffer[256];
     while (!feof(fichier1)){
         fscanf(fichier1,"%s",buffer);
-        if (strcmp(mot,buffer) == 0 ){
+        if (strcmp(mot,remove_accents(buffer)) == 0 ){
             fclose(fichier1);
             return 1;
         }
@@ -112,7 +106,7 @@ void tridico(char* dico,char* dicotrie,int longueur){
 
     while (!feof(fichier1)){
         fscanf(fichier1,"%s",buffer);
-        if (len(buffer)==longueur){
+        if (strlen(buffer)==longueur){
             fprintf(fichier2,"%s\n",buffer);
 
     }
@@ -123,7 +117,7 @@ void tridico(char* dico,char* dicotrie,int longueur){
 }
 
 int main(int argc,char const *argv[]){
-    char s[20];
+    char s[256];
     bool win = 0;
     int n = 0;
     char buffer[256];
@@ -133,22 +127,29 @@ int main(int argc,char const *argv[]){
 
     readnthline("dicotrie.txt",r,buffer);
     printf("%s",buffer);
+    char* sol = remove_accents(buffer);
+    printf("%s",sol);
+    
     printf("\n Ecrivez votre mot de 5 lettres: \n");
     while (!(win)){
-    scanf("%19s", s);
-    int lon = len(s);
+
+    scanf("%s", s);
+    char* guess = s;
+    guess = remove_accents(guess);
+    int lon = strlen(guess);
+
     if (lon!=5){
         printf("Votre mot ne fait pas 5 lettres\n");
         continue;
     }
-    if (!(verifdico(s,"dicotrie.txt"))){
+    if (!(verifdico(guess,"dicotrie.txt"))){
         printf("Ce mot n'existe pas\n");
         continue;
     }
-    hint(s,buffer);
-    if (strcmp(s,buffer)==0){
+    hint(guess,buffer);
+    if (strcmp(guess,sol)==0){
         win = 1;
-        printf("Vous avez gagné");
+        printf("Vous avez gagné\n");
     }
 
     n++; 
