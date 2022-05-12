@@ -56,14 +56,13 @@ void readnthline(char* fichier, int n,char* buffer){
 on se base sur les infos qu'on a deja grace au int donc start avec un truc qui donne le max d'infos 
 ie check les frequences des lettres 
 */
-char* ai(char* guess, char* hint){
+char* optiword(char* guess, char* hint){
     char buffer[256];
     int mindist= 100;
     char* res;
     for (int i =0;i<6144;i++){
         readnthline("dicotrie.txt",i,buffer);
         if(dist(guess,hint,buffer) < mindist){
-            printf("%s : %d \n",buffer,dist(guess,hint,buffer) );
             res = buffer;
             mindist = dist(guess,hint,buffer) ;
             }

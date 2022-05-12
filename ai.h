@@ -9,7 +9,7 @@ void readnthline(char* fichier, int n,char* buffer);
 on se base sur les infos qu'on a deja grace au int donc start avec un truc qui donne le max d'infos 
 ie check les frequences des lettres 
 */
-char* ai(char* guess, char* hint);
+char* optiword(char* guess, char* hint);
 /* int main(int argc,char const *argv[]){
 
     float temps;

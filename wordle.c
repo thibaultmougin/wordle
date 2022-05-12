@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <unac.h>
-
+#include "ai.c"
 int len(char* s){
     int n=0;
     while (!(s[n]==0)){
@@ -14,7 +14,7 @@ int len(char* s){
     return n;
 }
 
-
+/*
 void readnthline(char* fichier, int n,char* buffer){
     FILE* fichier1 = fopen(fichier,"rb");
     if (fichier1 == NULL){
@@ -34,7 +34,7 @@ void readnthline(char* fichier, int n,char* buffer){
     }
 
 
-}
+}*/
 
 char* remove_accents(char* word){
 char* out = 0;
@@ -62,7 +62,7 @@ int verifdico(char* mot, char* dico){
     fclose(fichier1);
     return 0;
 }
-
+/*
 int veriflettre(char guess,char* word)
 {
     int n =0;
@@ -75,21 +75,25 @@ int veriflettre(char guess,char* word)
         n++;
     }
     return 0;
-}
-void hint(char* guess,char* word){
+}*/
+char* hint(char* guess,char* word){
+    char* res = malloc(1);
     int i =0;
-    while(guess[i]!=0){
+    while(i<5){
         if (guess[i]==word[i]){
-            printf("X");
+            res[i] = 'X';
         }
         
         else if (veriflettre(guess[i],word)){
-            printf("x");
+            res[i] = 'x';
         }
-        else{printf(".");}
+        else{
+        res[i]='.';}
         i++;
     }
     printf("\n");
+    res[5] = '\0';
+    return res;
 }
 
 void tridico(char* dico,char* dicotrie,int longueur){
@@ -146,7 +150,11 @@ int main(int argc,char const *argv[]){
         printf("Ce mot n'existe pas\n");
         continue;
     }
-    hint(guess,buffer);
+    char* indice = hint(guess,sol);
+    char* opti = optiword(guess,indice);
+    printf("%s\n",indice);
+    printf("IA : %s \n",opti);
+
     if (strcmp(guess,sol)==0){
         win = 1;
         printf("Vous avez gagné\n");
