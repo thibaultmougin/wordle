@@ -1,5 +1,11 @@
-# wordle
+# Wordle
 
-Compiler avec : 
-sudo apt-get install libunac1-dev 
-gcc wordle.c -o wordle ai.h -lunac
+Wordle en C avec IA intégrée et fichiers de setup (pour changement de langue, nombre de lettres )
+
+## Compilation
+
+```bash
+sudo apt-get install libunac1-dev
+gcc wordle.c -o wordle utils.h  ai.h -lunac
+```
+

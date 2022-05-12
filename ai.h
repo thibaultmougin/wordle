@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 
-int veriflettre(char guess,char* word);
 
 int dist(char* guess, char* hint, char* word);
-void readnthline(char* fichier, int n,char* buffer);
 /*
 on se base sur les infos qu'on a deja grace au int donc start avec un truc qui donne le max d'infos 
 ie check les frequences des lettres 
