@@ -129,7 +129,8 @@ struct pos nvpossibles(char* guess, char* hint,struct pos base){
         if ((ok==1) && !(strcmp(guess,buffer)==0)){
         res.possibles[res.size]=base.possibles[i];
         res.size++;
-        printf("%s (%d) \n",buffer,freqscore(buffer));}
+        //printf("%s (%d) \n",buffer,freqscore(buffer));
+        }
         
         }
 

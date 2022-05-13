@@ -86,15 +86,29 @@ int main(int argc,char const *argv[]){
     }
     if (win==0){
         char* indice = hint(guess,sol);
-        char* opti = optiword(guess,indice,n%2);
+        //char* opti = optiword(guess,indice,n%2);
         mots_possibles = nvpossibles(guess,indice,mots_possibles);
         printf("%s\n",indice);
-        printf("IA : %s \n",opti);
-        printf("nb pos = %d \n",mots_possibles.size);
+        //printf("IA : %s \n",opti);
+        //printf("nb pos = %d \n",mots_possibles.size);
+        char nvbuffer[256];
+        char sol[5];  
+        int max = 0;
+        for (int k =0;k<mots_possibles.size;k++){
+            readnthline("dicotrie.txt",mots_possibles.possibles[k],nvbuffer);
+            strcpy (nvbuffer,remove_accents(nvbuffer));
+            if (freqscore(nvbuffer)>max){
+                strcpy(sol,nvbuffer);
+                max = freqscore(nvbuffer);
+            }
+
+        }
+        printf("IA : %s \n",sol);
     }
     n++; 
     if (n==6){
-        printf("perdu");
+        printf("Perdu........... \n");
+        break;
     }}
 
     return 0;
