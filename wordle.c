@@ -50,9 +50,17 @@ int main(int argc,char const *argv[]){
     srand(time(NULL));
     int r = 1000*rand()%size;
 
+    int everyindex[6145];
+    for (int y=0;y<6145;y++){
+        everyindex[y]=y;
+    }
+    struct pos mots_possibles;
+    mots_possibles.possibles = everyindex;
+    mots_possibles.size = 6145;
+
     readnthline("dicotrie.txt",r,buffer);
     char* sol = remove_accents(buffer);
-    //printf("%s",sol);
+    printf("%s",sol);
     
     printf("\n Ecrivez votre mot de 5 lettres: \n");
     while (!(win)){
@@ -79,8 +87,10 @@ int main(int argc,char const *argv[]){
     if (win==0){
         char* indice = hint(guess,sol);
         char* opti = optiword(guess,indice,n%2);
+        mots_possibles = nvpossibles(guess,indice,mots_possibles);
         printf("%s\n",indice);
         printf("IA : %s \n",opti);
+        printf("nb pos = %d \n",mots_possibles.size);
     }
     n++; 
     if (n==6){

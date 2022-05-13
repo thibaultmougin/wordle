@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
+struct pos;
 
 int dist(char* guess, char* hint, char* word);
 /*
