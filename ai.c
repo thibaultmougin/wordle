@@ -166,6 +166,45 @@ char* optiword(char* guess, char* hint,int sens){
     }
     return res;
 }
+
+void meilleurmot(struct pos base){
+    int n = base.size;
+    /*char nvbuffer[5];
+    for (int k =0;k<base.size;k++){
+        readnthline("dicotrie.txt",base.possibles[k],nvbuffer);
+        printf("%s, ",nvbuffer);}*/
+    char bufferi[10];
+    char bufferj[10];
+    int vec[n];
+    for (int i = 0; i<n;i++){
+        int maxi = 1;
+        readnthline("dicotrie.txt",base.possibles[i],bufferi);
+        //printf("%s \n ",bufferi);
+        for (int j =0; j <n;j++){
+            readnthline("dicotrie.txt",base.possibles[j],bufferj);
+            //printf("%s, ",bufferj);
+
+            char* indice = hint(bufferi,bufferj);
+            struct pos alors = nvpossibles(bufferi,indice,base);
+            if (alors.size>maxi){
+                vec[i] = maxi;
+                maxi = alors.size;
+            }
+        }
+    }
+    char* bw;
+    int mini = 1000;
+    int res = 0;
+    for(int k =0;k<n;k++){
+        if (vec[k]<mini){
+            res =k;
+            mini = vec[k];
+        }
+    }
+    readnthline("dicotrie.txt",base.possibles[res],bufferi);
+    printf("IA : %s\n",bufferi);
+}
+
 /*
 int main(int argc,char const *argv[]){
 

@@ -17,3 +17,4 @@ char* remove_accents(char* word);
 int verifdico(char* mot, char* dico);
 int veriflettre(char guess,char* word);
 int lettercount(char* word, char letter);
+char* hint(char* guess,char* word);

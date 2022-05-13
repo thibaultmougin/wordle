@@ -86,3 +86,34 @@ int lettercount(char* word, char letter){
     }
     return res;
 }
+char* hint(char* guess,char* word){
+    char* res = malloc(1);
+    int i =0;
+    int cnt[5];
+    cnt[0] = 1;
+    
+    for (int j =0;j<5;j++){
+        cnt[j]=0;
+        for (int k =0;k<=j;k++){
+            if (guess[k]==guess[j])
+            {
+                cnt[j]++;}
+            
+        }
+    }
+    
+    while(i<5){
+        if (guess[i]==word[i] ){
+            res[i] = 'X';
+        }
+        
+        else if (veriflettre(guess[i],word) && (cnt[i]<=lettercount(word,guess[i]))){
+            res[i] = 'x';
+        }
+        else{
+        res[i]='.';}
+        i++;
+    }
+    res[5] = '\0';
+    return res;
+}

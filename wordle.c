@@ -7,44 +7,13 @@
 #include <unac.h>
 #include "ai.c"
 
-char* hint(char* guess,char* word){
-    char* res = malloc(1);
-    int i =0;
-    int cnt[5];
-    cnt[0] = 1;
-    
-    for (int j =0;j<5;j++){
-        cnt[j]=0;
-        for (int k =0;k<=j;k++){
-            if (guess[k]==guess[j])
-            {
-                cnt[j]++;}
-            
-        }
-    }
-    
-    while(i<5){
-        if (guess[i]==word[i] ){
-            res[i] = 'X';
-        }
-        
-        else if (veriflettre(guess[i],word) && (cnt[i]<=lettercount(word,guess[i]))){
-            res[i] = 'x';
-        }
-        else{
-        res[i]='.';}
-        i++;
-    }
-    printf("\n");
-    res[5] = '\0';
-    return res;
-}
+
 
 
 int main(int argc,char const *argv[]){
     char s[256];
     bool win = 0;
-    int n = 0;
+    int n = 1;
     char buffer[256];
     int size = 6144;
     srand(time(NULL));
@@ -85,6 +54,7 @@ int main(int argc,char const *argv[]){
         printf("Vous avez gagné\n");
     }
     if (win==0){
+        printf("Essai %d :  \n",n);
         char* indice = hint(guess,sol);
         //char* opti = optiword(guess,indice,n%2);
         mots_possibles = nvpossibles(guess,indice,mots_possibles);
@@ -92,21 +62,30 @@ int main(int argc,char const *argv[]){
         //printf("IA : %s \n",opti);
         //printf("nb pos = %d \n",mots_possibles.size);
         char nvbuffer[256];
-        char sol[5];  
+        char* autbuffer;
+        if (n<3){
+        char res[5];  
         int max = 0;
         for (int k =0;k<mots_possibles.size;k++){
             readnthline("dicotrie.txt",mots_possibles.possibles[k],nvbuffer);
+            //printf("%s, ",nvbuffer);
             strcpy (nvbuffer,remove_accents(nvbuffer));
             if (freqscore(nvbuffer)>max){
-                strcpy(sol,nvbuffer);
+                strcpy(res,nvbuffer);
                 max = freqscore(nvbuffer);
             }
 
         }
-        printf("IA : %s \n",sol);
+        printf("IA : %s \n",res);
+        }
+        else{
+        //printf("%d \n",n);
+        meilleurmot(mots_possibles);
+        //printf("IA : %s \n",autbuffer);
+        }
     }
     n++; 
-    if (n==6){
+    if (n==7){
         printf("Perdu........... \n");
         break;
     }}
