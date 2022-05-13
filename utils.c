@@ -76,3 +76,13 @@ int veriflettre(char guess,char* word)
     }
     return 0;
 }
+
+int lettercount(char* word, char letter){
+    int res = 0;
+    for (int i =0;i <5;i++){
+        if (word[i]==letter){
+            res+= 1;
+        }
+    }
+    return res;
+}
