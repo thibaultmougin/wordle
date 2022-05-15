@@ -62,7 +62,6 @@ int main(int argc,char const *argv[]){
 
     if (strcmp(guess,sol)==0){
         win = 1;
-        printf("Vous avez gagné\n");
     }
     if (win==0){
         printf("\nEssai %d :  \n",n);
@@ -97,7 +96,10 @@ int main(int argc,char const *argv[]){
             }}
     }
     n++; 
-    if ((n==7)&&(win==0)){
+    if (win==1){
+        printf("Vous avez gagné \n");
+    }
+    if ((n==7) && (win==0)){
         printf("Perdu........... \n");
         break;
     }}
