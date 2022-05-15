@@ -1,6 +1,6 @@
 # Wordle
 
-Wordle en C avec IA et fichiers de setup (pour changement de langue, nombre de lettres )
+Wordle en C avec IA intégrée et fichiers de setup (pour changement de langue, nombre de lettres )
 
 ## Compilation
 

@@ -29,9 +29,20 @@ int main(int argc,char const *argv[]){
 
     readnthline("dicotrie.txt",r,buffer);
     char* sol = remove_accents(buffer);
-    printf("%s",sol);
+    //printf("%s",sol);
     
-    printf("\n Ecrivez votre mot de 5 lettres: \n");
+    char aide[1];
+    printf("Activer l'IA? : o/n \n");
+    scanf("%s",aide);
+
+    
+
+    printf("\n Ecrivez votre mot de 5 lettres: \n\n");
+
+    if (aide[0]=='o'){
+            printf("\nL'IA conseille : saine\n");
+        }
+
     while (!(win)){
 
     scanf("%s", s);
@@ -54,38 +65,39 @@ int main(int argc,char const *argv[]){
         printf("Vous avez gagné\n");
     }
     if (win==0){
-        printf("Essai %d :  \n",n);
+        printf("\nEssai %d :  \n",n);
         char* indice = hint(guess,sol);
-        //char* opti = optiword(guess,indice,n%2);
-        mots_possibles = nvpossibles(guess,indice,mots_possibles);
-        printf("%s\n",indice);
-        //printf("IA : %s \n",opti);
-        //printf("nb pos = %d \n",mots_possibles.size);
-        char nvbuffer[256];
-        char* autbuffer;
-        if (n<3){
-        char res[5];  
-        int max = 0;
-        for (int k =0;k<mots_possibles.size;k++){
-            readnthline("dicotrie.txt",mots_possibles.possibles[k],nvbuffer);
-            //printf("%s, ",nvbuffer);
-            strcpy (nvbuffer,remove_accents(nvbuffer));
-            if (freqscore(nvbuffer)>max){
-                strcpy(res,nvbuffer);
-                max = freqscore(nvbuffer);
-            }
+        printf("%s\n\n",indice);
+        if(aide[0] == 'o'){
+            //char* opti = optiword(guess,indice,n%2);
+            mots_possibles = nvpossibles(guess,indice,mots_possibles);
+            //printf("IA : %s \n",opti);
+            //printf("nb pos = %d \n",mots_possibles.size);
+            char nvbuffer[256];
+            char* autbuffer;
+            if (n<3){
+            char res[5];  
+            int max = 0;
+            for (int k =0;k<mots_possibles.size;k++){
+                readnthline("dicotrie.txt",mots_possibles.possibles[k],nvbuffer);
+                //printf("%s, ",nvbuffer);
+                strcpy (nvbuffer,remove_accents(nvbuffer));
+                if (freqscore(nvbuffer)>max){
+                    strcpy(res,nvbuffer);
+                    max = freqscore(nvbuffer);
+                }
 
-        }
-        printf("IA : %s \n",res);
-        }
-        else{
-        //printf("%d \n",n);
-        meilleurmot(mots_possibles);
-        //printf("IA : %s \n",autbuffer);
-        }
+            }
+            printf("L'IA conseille : %s \n\n",res);
+            }
+            else{
+            //printf("%d \n",n);
+            meilleurmot(mots_possibles);
+            //printf("IA : %s \n",autbuffer);
+            }}
     }
     n++; 
-    if (n==7){
+    if ((n==7)&&(win==0)){
         printf("Perdu........... \n");
         break;
     }}

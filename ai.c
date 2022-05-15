@@ -202,7 +202,7 @@ void meilleurmot(struct pos base){
         }
     }
     readnthline("dicotrie.txt",base.possibles[res],bufferi);
-    printf("IA : %s\n",bufferi);
+    printf("L'IA conseille : %s\n\n",bufferi);
 }
 
 /*
