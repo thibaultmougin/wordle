@@ -16,8 +16,9 @@ int main(int argc,char const *argv[]){
     int n = 1;
     char buffer[256];
     int size = 6144;
+
     srand(time(NULL));
-    int r = 1000*rand()%size;
+    int r = 1000*rand()%size; // indice random du dico
 
     int everyindex[6145];
     for (int y=0;y<6145;y++){
@@ -28,8 +29,8 @@ int main(int argc,char const *argv[]){
     mots_possibles.size = 6145;
 
     readnthline("dicotrie.txt",r,buffer);
-    char* sol = remove_accents(buffer);
-    //printf("%s",sol);
+    char* sol = remove_accents(buffer); //SOLUTION
+    //printf("%s",sol); AFFICHER LA SOLUTION
     
     char aide[1];
     printf("Activer l'IA? : o/n \n");
@@ -68,12 +69,17 @@ int main(int argc,char const *argv[]){
         char* indice = hint(guess,sol);
         printf("%s\n\n",indice);
         if(aide[0] == 'o'){
-            //char* opti = optiword(guess,indice,n%2);
-            mots_possibles = nvpossibles(guess,indice,mots_possibles);
+            //char* opti = optiword(guess,indice,n%2); anncien algo IA : marche pas trop
             //printf("IA : %s \n",opti);
-            //printf("nb pos = %d \n",mots_possibles.size);
+            
+            mots_possibles = nvpossibles(guess,indice,mots_possibles);//ensemble des mots possibles d'apres dernier indice
+        
+
+            
+            //printf("nb pos = %d \n",mots_possibles.size); AFFICHER NOMBRE DE MOTS POSSIBLES
             char nvbuffer[256];
-            char* autbuffer;
+
+            //ANALYSE FREQUENCES :
             if (n<3){
             char res[5];  
             int max = 0;
@@ -89,10 +95,8 @@ int main(int argc,char const *argv[]){
             }
             printf("L'IA conseille : %s \n\n",res);
             }
-            else{
-            //printf("%d \n",n);
+            else{//2EME ETAPE IA :
             meilleurmot(mots_possibles);
-            //printf("IA : %s \n",autbuffer);
             }}
     }
     n++; 

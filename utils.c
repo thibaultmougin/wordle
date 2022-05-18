@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <unac.h>
 
+
+//longueur d'une chaine
 int len(char* s){
     int n=0;
     while (!(s[n]==0)){
@@ -14,7 +16,7 @@ int len(char* s){
     return n;
 }
 
-
+//lire la n-ième ligne du dico
 void readnthline(char* fichier, int n,char* buffer){
     FILE* fichier1 = fopen(fichier,"rb");
     if (fichier1 == NULL){
@@ -36,6 +38,7 @@ void readnthline(char* fichier, int n,char* buffer){
 
 }
 
+//supprime les accents d'une chaine : necessite unac
 char* remove_accents(char* word){
 char* out = 0;
 size_t out_length = 0;
@@ -46,6 +49,7 @@ else  {
 }
 }
 
+//verifie qu'un mot est dans le dico linéairement
 int verifdico(char* mot, char* dico){
     FILE* fichier1 = fopen(dico,"rb");
     if (fichier1 == NULL){
@@ -63,6 +67,7 @@ int verifdico(char* mot, char* dico){
     return 0;
 }
 
+//verifie qu'une lettre est dans un mot 
 int veriflettre(char guess,char* word)
 {
     int n =0;
@@ -77,6 +82,7 @@ int veriflettre(char guess,char* word)
     return 0;
 }
 
+//compte le nombres d'occurences d'un caractere dans un mot
 int lettercount(char* word, char letter){
     int res = 0;
     for (int i =0;i <5;i++){
@@ -86,6 +92,8 @@ int lettercount(char* word, char letter){
     }
     return res;
 }
+
+//retourne l'indice wordle sous forme de string (. : case grise, x : case orange, X : case verte)
 char* hint(char* guess,char* word){
     char* res = malloc(1);
     int i =0;

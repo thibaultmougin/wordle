@@ -2,12 +2,13 @@
 #include <time.h>
 #include "utils.c"
 
-
+//structure stockage mots possibles :
 struct pos{
     int* possibles;
     int size; 
 };
-int dist(char* guess, char* hint, char* word){
+int dist(char* guess, char* hint, char* word){//ANCIENNE IA : idée de distance : marche po
+
     int res = 0;
     for(int i=0;i<5;i++){
         if (hint[i] == 'x'){
@@ -25,7 +26,7 @@ int dist(char* guess, char* hint, char* word){
     return res;
 
 }
-
+//fct des scores de frequences
 int freqscore(char* word){
     int res=0;
     for (int i=0;i<5;i++){
@@ -100,9 +101,12 @@ int freqscore(char* word){
     }
     return res;
 }
+
+
+// retourne le nouvel ensemble de mots possibles d'apres le dernier essai et l'indice
 struct pos nvpossibles(char* guess, char* hint,struct pos base){
     struct pos res;
-    res.possibles = malloc(6145*sizeof(int));
+    res.possibles = malloc(6145*sizeof(int));//taille maximale possible
     res.size =0;
     char buffer[256];
     for (int i =0;i<base.size;i++){
@@ -138,7 +142,7 @@ struct pos nvpossibles(char* guess, char* hint,struct pos base){
     return res;
 }
 
-
+//ancien algo IA : bof
 char* optiword(char* guess, char* hint,int sens){
     char buffer[256];
     int mindist= 100;
@@ -166,6 +170,8 @@ char* optiword(char* guess, char* hint,int sens){
     }
     return res;
 }
+
+//2eme etape IA :: double boucle sur les mots possibles : minmax sur la nouvelle taille des possibles
 
 void meilleurmot(struct pos base){
     int n = base.size;
